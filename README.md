@@ -10,6 +10,7 @@ Therefore `diet-raspbian` uses Ansible to take a system built with the official 
   2. Edit the `inventory` file and set the IP address to the address of your running Pi.
   3. Ensure you can log into the Pi via SSH using a key (so you don't have to enter a password).
   4. Run the following command: `$ ansible-playbook -i inventory diet.yml`.
+  5. Immediately following the playbook's completion, before rebooting the Pi, follow the steps below to 'Create a new diet-raspbian disk image' if you want to create the smallest image (without a swapfile).
 
 After 10-20 minutes, the space consumed by Raspbian should go from ~2.5 GB to ~1.5 GB (or lower, depending on how far along this project has come!). Restart your Raspberry Pi for full effect.
 
@@ -23,17 +24,19 @@ Do the following to create an image from your now-trim Raspbian install:
 
   1. Zero out all free space (on the Pi):
     1. `$ sudo dd if=/dev/zero of=/zerofile bs=1M` (let this run until it errors out)
-    2. `$ sudo rm /zerofile`
+    2. `$ sudo rm -f /zerofile`
+    3. Take note of the space used on the card: `$ df -H --total /`
   2. Shut down your Raspberry Pi (`$ sudo shutdown now`) and pop out the microSD card
   3. Pop the microSD card into your Mac's card reader
   4. Locate the card: `$ diskutil list` (should be something like `/dev/disk3`)
   5. Make an image of the card using `dd`:
-    1. Compressed image: `$ sudo dd if=/dev/disk3 bs=1m | gzip -c ~/Desktop/diet-raspbian.img.gz`
-    2. Uncompressed image: `$ sudo dd if=/dev/disk3 of=~/Desktop/diet-raspbian.img bs=1m`
+    1. Compressed image (with `pv`): `$ sudo dd if=/dev/disk6 bs=1m count=1024 | pv | gzip > ~/Desktop/diet-raspbian.img.gz`
+    1. Compressed image (without `pv`): `$ sudo dd if=/dev/disk6 bs=1m count=1024 | gzip > ~/Desktop/diet-raspbian.img.gz`
+    2. Uncompressed image: `$ sudo dd if=/dev/disk3 of=~/Desktop/diet-raspbian.img bs=1m count=1024`
 
 > WARNING: Double-check that you're using the right `if` disk and `of` or `gzip` destinations; these values will be different on your system.
 
-> If you want to create an image that's not the full size of your microSD card's main partition, you can do that by getting the total used space on the main partition (`$ df -H --total /`), then adding something like `count=2048` (for 2 GB, for example) to the `dd` command used in step 5. (Note that data should be defragmented before this operation is completed... use a fresh Raspbian install to minimize any problems!).
+> NOTE: The `count=1024` option in the `dd` command limits the copy to 1 GB, so anything futher than 1GB of the partition will not be copied. Make sure you copy at least as much data as is on the partition (e.g. the used space reported in step 1.iii), with a little extra padding. Use a fresh Raspbian install and/or remove the `count` parameter if you're having issues with a bad image.
 
 At this point, you should have a disk image you can write to new SD cards, or use to overwrite your existing SD card.
 
