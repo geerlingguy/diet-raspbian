@@ -1,0 +1,67 @@
+---
+# Defaults for these overclock values are specific to the Raspberry Pi model.
+config_arm_freq: 700
+config_core_freq: 250
+config_sdram_freq: 400
+config_over_voltage: 0
+
+# Configure how much memory is allocated to the GPU (in MB).
+config_gpu_mem: 16
+
+# Whether to allow full 1.2A current to be used via USB.
+config_max_usb_current: 1
+
+# Locale settings.
+locale_timezone: America/Chicago
+keyboard_model: pc104
+keyboard_layout: us
+
+# Paths/files to be deleted.
+remove_paths:
+  - /home/pi/python_games
+  - /home/pi/Desktop
+  - /usr/share/icons/gnome/icon-theme.cache
+  - /opt/vc/src/hello_pi/hello_video/test.h264
+
+# Packages to be removed.
+remove_packages:
+  # X and Desktop environment.
+  - desktop-base
+  - lightdm
+  - lxappearance
+  - lxde-common
+  - lxde-icon-theme
+  - lxinput
+  - lxpanel
+  - lxpolkit
+  - lxrandr
+  - lxsession-edit
+  - lxshortcut
+  - lxtask
+  - lxterminal
+  - obconf
+  - openbox
+  - raspberrypi-artwork
+  - xarchiver
+  - xinit
+  - xserver-xorg
+  - xserver-xorg-video-fbdev
+  - x11-utils x11-common
+  # Multimedia packages.
+  - esound-common
+  - freepats
+  - sonic-pi
+  - jackd2
+  - omxplayer
+  # Other packages.
+  - wolfram-engine
+  - python-pifacecommon
+  - python3-pifacecommon
+  - dillo
+  - squeak-plugins-scratch
+  - netsurf-gtk
+  - netsurf-common
+  - epiphany-browser-data
+  - fonts-droid
+  - gsfonts
+  - ruby1.9.1

@@ -1,0 +1,63 @@
+---
+- hosts: raspbian
+  sudo: yes
+
+  vars_files:
+    - vars/main.yml
+
+  tasks:
+    # Note: Changes here require a reboot, but we don't do that now.
+    - name: Copy over config.txt.
+      template:
+        src: templates/config.txt.j2
+        dest: /boot/config.txt
+        mode: 0755
+
+    - name: Set timezone.
+      copy:
+        content: "{{ locale_timezone }}"
+        dest: /etc/timezone
+        mode: 0644
+        backup: yes
+      notify: update timezone
+
+    - name: Configure keyboard layout.
+      template:
+        src: templates/keyboard.j2
+        dest: /etc/default/keyboard
+        mode: 0644
+      notify: update keyboard
+
+    - name: Ensure certain files and directories are deleted.
+      file:
+        path: "{{ item }}"
+        state: absent
+      with_items: remove_paths
+
+    - name: Remove unneeded packages.
+      apt:
+        name: "{{ item }}"
+        state: absent
+        purge: yes
+      register: apt_remove_packages
+      with_items: remove_packages
+
+    - name: Autoremove unused packages.
+      command: apt-get -y autoremove
+      when: apt_remove_packages.changed
+
+    - name: Update all remaining packages.
+      apt:
+        update_cache: yes
+        upgrade: safe
+
+    - name: Clean apt caches.
+      command: apt-get clean
+
+    - name: Clear out all logs.
+      shell: "find /var/log -type f -exec /bin/cp /dev/null {} \\;"
+
+    # TODO: Disable swap, fill free space with 0s?
+
+  handlers:
+    - include: handlers/main.yml

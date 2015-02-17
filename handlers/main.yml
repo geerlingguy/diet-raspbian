@@ -1,0 +1,6 @@
+---
+- name: update timezone
+  command: dpkg-reconfigure --frontend noninteractive tzdata
+
+- name: update keyboard
+  command: dpkg-reconfigure --frontend noninteractive keyboard-configuration
