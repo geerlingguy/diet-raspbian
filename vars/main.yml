@@ -32,7 +32,6 @@ remove_paths:
 # Packages to be removed.
 install_packages:
   - localepurge
-  - gdisk
 
 # Packages to be removed.
 remove_packages:
