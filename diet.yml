@@ -73,7 +73,8 @@
     - name: Clear out all logs.
       shell: "find /var/log -type f -exec /bin/cp /dev/null {} \\;"
 
-    # TODO: Disable swap, fill free space with 0s?
+    # TODO: Disable swap, fill space with 0s? Maybe make this a manual step,
+    # since it requires shutdown immediately following...
 
   handlers:
     - include: handlers/main.yml
