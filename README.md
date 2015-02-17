@@ -31,8 +31,8 @@ Do the following to create an image from your now-trim Raspbian install:
   4. Locate the card: `$ diskutil list` (should be something like `/dev/disk3`)
   5. Make an image of the card using `dd`:
     1. Compressed image (with `pv`): `$ sudo dd if=/dev/disk6 bs=1m count=1024 | pv | gzip > ~/Desktop/diet-raspbian.img.gz`
-    1. Compressed image (without `pv`): `$ sudo dd if=/dev/disk6 bs=1m count=1024 | gzip > ~/Desktop/diet-raspbian.img.gz`
-    2. Uncompressed image: `$ sudo dd if=/dev/disk3 of=~/Desktop/diet-raspbian.img bs=1m count=1024`
+    2. Compressed image (without `pv`): `$ sudo dd if=/dev/disk6 bs=1m count=1024 | gzip > ~/Desktop/diet-raspbian.img.gz`
+    3. Uncompressed image: `$ sudo dd if=/dev/disk3 of=~/Desktop/diet-raspbian.img bs=1m count=1024`
 
 > WARNING: Double-check that you're using the right `if` disk and `of` or `gzip` destinations; these values will be different on your system.
 
@@ -46,8 +46,9 @@ To write the image back to another microSD card:
   2. Locate the card: `$ diskutil list` (should be something like `/dev/disk3`)
   3. Unmount any mounted partitions on the card: `$ diskutil unmountDisk /dev/disk3`
   3. Write the image to the new card:
-    1. Compressed image: `$ gzip -dc ~/Desktop/diet-raspbian.img.gz | sudo dd of=/dev/disk3 bs=1m`
-    2. Uncompressed image: `$ sudo dd if=~/Desktop/diet-raspbian.img of=/dev/disk3 bs=1m`
+    1. Compressed image (with `pv`): `$ gzip -dc ~/Desktop/diet-raspbian.img.gz | pv | sudo dd of=/dev/disk3 bs=1m`
+    2. Compressed image (without `pv`): `$ gzip -dc ~/Desktop/diet-raspbian.img.gz | sudo dd of=/dev/disk3 bs=1m`
+    3. Uncompressed image: `$ sudo dd if=~/Desktop/diet-raspbian.img of=/dev/disk3 bs=1m`
 
 > WARNING: Double-check that you're using the right `if` disk and `of` or `gzip` destinations; these values will be different on your system.
 
