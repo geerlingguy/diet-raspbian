@@ -78,6 +78,8 @@
       with_items:
         - swapoff -a
         - sudo rm -f /var/swap
+        - sudo dd if=/dev/zero of=/zerofile bs=1M count=1024
+        - rm -f /zerofile
 
   handlers:
     - include: handlers/main.yml

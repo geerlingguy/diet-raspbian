@@ -22,10 +22,21 @@ Once you've run the `diet.yml` playbook on your Pi, and save a decent amount of 
 
 Do the following to create an image from your now-trim Raspbian install:
 
-  1. Zero out all free space (on the Pi):
-    1. `$ sudo dd if=/dev/zero of=/zerofile bs=1M` (let this run until it errors out)
-    2. `$ sudo rm -f /zerofile`
-    3. Take note of the space used on the card: `$ df -H --total /`
+  1. Use `gdisk` to resize the partition to just a little more than the data on the disk:
+    1. `$ sudo gdisk /dev/mmcblk0`
+      1. `Command: i`, then `2` (Show detailed information for partition 2)
+      2. `Command: d`, then `2` (Delete the 2nd partition)
+      3. `Command: n`, then `2` (Create a new 2nd partition)
+      4. Make sure the `First sector` is correct (matches value from earlier info command)
+      5. Enter new value for `Last sector`: `2070140` (for 1GB)
+      6. Press 'Enter' to accept default for `Hex code or GUID`)
+      7. Transfer the old partition GUID to the new one:
+        1. `x` <enter>, then `c` <enter>, then `2` <enter>
+        2. Enter the GUID from the earlier info command.
+      8. `Expert command: w`, then `Y` to confirm (write the data, cross your fingers!)
+    2. Reboot: `$ sudo reboot`
+    3. Finish resizing the filesystem: `$ sudo resize2fs /dev/mmcblk0`
+    4. Take note of the space used on the card: `$ df -H --total /`
   2. Shut down your Raspberry Pi (`$ sudo shutdown now`) and pop out the microSD card
   3. Pop the microSD card into your Mac's card reader
   4. Locate the card: `$ diskutil list` (should be something like `/dev/disk3`)
