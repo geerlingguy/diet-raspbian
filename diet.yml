@@ -28,11 +28,21 @@
         mode: 0644
       notify: update keyboard
 
-    - name: Ensure certain files and directories are deleted.
-      file:
-        path: "{{ item }}"
-        state: absent
-      with_items: remove_paths
+    - name: Configure locale.
+      template:
+        src: templates/locale.j2
+        dest: /etc/default/locale
+        mode: 0644
+      notify: update locale
+      with_items:
+        - { src: templates/locale.j2, dest: /etc/default/locale }
+        - { src: templates/locale.gen.j2, dest: /etc/locale.gen }
+
+    - name: Install needed packages.
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items: install_packages
 
     - name: Remove unneeded packages.
       apt:
@@ -50,6 +60,12 @@
       apt:
         update_cache: yes
         upgrade: safe
+
+    - name: Ensure certain files and directories are deleted.
+      file:
+        path: "{{ item }}"
+        state: absent
+      with_items: remove_paths
 
     - name: Clean apt caches.
       command: apt-get clean

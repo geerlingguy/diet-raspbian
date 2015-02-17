@@ -13,15 +13,25 @@ config_max_usb_current: 1
 
 # Locale settings.
 locale_timezone: America/Chicago
+locale_lang: en_US.UTF-8
 keyboard_model: pc104
 keyboard_layout: us
 
 # Paths/files to be deleted.
 remove_paths:
+  # Home folder stuff.
   - /home/pi/python_games
   - /home/pi/Desktop
+  # Documentation.
+  - /usr/share/doc/
+  - /usr/share/man/
+  # Other.
   - /usr/share/icons/gnome/icon-theme.cache
   - /opt/vc/src/hello_pi/hello_video/test.h264
+
+# Packages to be removed.
+install_packages:
+  - localepurge
 
 # Packages to be removed.
 remove_packages:
@@ -42,26 +52,38 @@ remove_packages:
   - obconf
   - openbox
   - raspberrypi-artwork
+  - xfonts-utils
   - xarchiver
   - xinit
   - xserver-xorg
   - xserver-xorg-video-fbdev
-  - x11-utils x11-common
+  - x11-utils
+  - x11-common
   # Multimedia packages.
   - esound-common
   - freepats
   - sonic-pi
   - jackd2
   - omxplayer
+  # Extraneous programming languages.
+  - python3
+  - python3.2
+  - python3.2-minimal
+  - pypy-upstream
+  - oracle-java8-jdk
+  - ruby1.9.1
   # Other packages.
   - wolfram-engine
+  - libopencv*
   - python-pifacecommon
   - python3-pifacecommon
   - dillo
+  - squeak-vm
   - squeak-plugins-scratch
   - netsurf-gtk
   - netsurf-common
   - epiphany-browser-data
   - fonts-droid
   - gsfonts
-  - ruby1.9.1
+  - man-db
+  - manpages
