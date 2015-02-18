@@ -70,7 +70,8 @@ At this point, you should have a disk image you can write to new SD cards, or us
   1. Pop the freshly-minted card into your Pi
   2. Wait for the Pi to boot (fingers crossed!)
   3. Log in (either locally or via SSH) and run `$ sudo raspi-config`
-  4. 
+  4. Select the first option ('expand partition to fill disk').
+  5. Reboot the Raspberry Pi.
 
 ## Author Information
 
