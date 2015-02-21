@@ -73,6 +73,7 @@ remove_packages:
   - oracle-java8-jdk
   - ruby1.9.1
   # Other packages.
+  - minecraft-pi
   - wolfram-engine
   - libopencv*
   - python-pifacecommon
