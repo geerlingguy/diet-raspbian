@@ -26,6 +26,7 @@ remove_paths:
   - /usr/share/doc/
   - /usr/share/man/
   # Other.
+  - /opt/vc/src
   - /usr/share/icons/gnome/icon-theme.cache
   - /opt/vc/src/hello_pi/hello_video/test.h264
 
