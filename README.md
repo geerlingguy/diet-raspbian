@@ -36,20 +36,19 @@ Once you've run the `diet.yml` playbook on your Pi, and save a decent amount of 
     2. Attach the USB device that has the microSD card attached to the VM
     3. Make sure gparted is installed (e.g. `$ sudo apt-get install -y gparted`)
     4. Start the gparted GUI: `$ sudo gparted`
-    5. Select the microSD card (e.g. `/dev/sde`).
-    6. Right click on the `ext4` volume (should be 2.99 GB or so) and unmount it
-    7. Resize the `ext4` volume to a smaller value (e.g. `797.00MB`)
-    8. Click the 'Apply' button to apply the changes (this will take ~10 minutes)
+    5. Select the microSD card (e.g. `/dev/sdb`).
+    6. Right click on the `ext4` (should be 2.99 GB or so) and `boot` volumes and unmount them
+    7. Resize the `ext4` volume to a smaller value (e.g. `850 MB`)
+    8. Click the 'Apply' button (green checkbox) to apply the changes (this will take ~10 minutes)
     9. Eject the card from the Ubuntu VM so you can use it from the Mac again.
   5. Locate the card: `$ diskutil list` (should be something like `/dev/disk3`)
-  6. Make an image of the card using `dd`:
-    1. Compressed image (with `pv`): `$ sudo dd if=/dev/disk3 bs=1m count=1536 | pv | gzip > ~/Desktop/diet-raspbian.img.gz`
-    2. Compressed image (without `pv`): `$ sudo dd if=/dev/disk3 bs=1m count=1536 | gzip > ~/Desktop/diet-raspbian.img.gz`
-    3. Uncompressed image: `$ sudo dd if=/dev/disk3 of=~/Desktop/diet-raspbian.img bs=1m count=1536`
+  6. Make a compressed image of the card using `dd`:
+    1. With `pv`: `$ sudo dd if=/dev/disk3 bs=1m count=1536 | pv | gzip > ~/Desktop/diet-raspbian.img.gz`
+    2. Without `pv`: `$ sudo dd if=/dev/disk3 bs=1m count=1536 | gzip > ~/Desktop/diet-raspbian.img.gz`
 
 > WARNING: Double-check that you're using the right `if` disk and `of` or `gzip` destinations; these values will be different on your system.
 
-> The `count=1536` above will create an image that is 1.5 GB. If it needs to be larger to contain all the partitions on the microSD card, you'll need to increase the size here. The settings here should work with a `count` of `1536`.
+> The `count=1536` above will create an image that is 1.5 GB. If it needs to be larger to contain all the partitions on the microSD card, you'll need to increase the size here.
 
 At this point, you should have a disk image you can write to new SD cards, or use to overwrite your existing SD card.
 

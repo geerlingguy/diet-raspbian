@@ -38,6 +38,12 @@
         - { src: templates/locale.j2, dest: /etc/default/locale }
         - { src: templates/locale.gen.j2, dest: /etc/locale.gen }
 
+    - name: Set up nameservers.
+      template:
+        src: templates/resolv.conf.j2
+        dest: /etc/resolv.conf
+        mode: 0644
+
     - name: Install needed packages.
       apt:
         name: "{{ item }}"

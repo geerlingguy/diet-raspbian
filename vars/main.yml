@@ -17,6 +17,11 @@ locale_lang: en_US.UTF-8
 keyboard_model: pc104
 keyboard_layout: us
 
+# Networking settings.
+networking_nameservers:
+  - "8.8.8.8"
+  - "8.8.4.4"
+
 # Paths/files to be deleted.
 remove_paths:
   # Home folder stuff.
