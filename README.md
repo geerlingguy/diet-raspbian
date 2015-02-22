@@ -58,9 +58,8 @@ At this point, you should have a disk image you can write to new SD cards, or us
   2. Locate the card: `$ diskutil list` (should be something like `/dev/disk3`)
   3. Unmount any mounted partitions on the card: `$ diskutil unmountDisk /dev/disk3`
   3. Write the image to the new card:
-    1. Compressed image (with `pv`): `$ gzip -dc ~/Desktop/diet-raspbian.img.gz | pv | sudo dd of=/dev/disk3 bs=1m`
-    2. Compressed image (without `pv`): `$ gzip -dc ~/Desktop/diet-raspbian.img.gz | sudo dd of=/dev/disk3 bs=1m`
-    3. Uncompressed image: `$ sudo dd if=~/Desktop/diet-raspbian.img of=/dev/disk3 bs=1m`
+    1. With `pv`: `$ gzip -dc ~/Desktop/diet-raspbian.img.gz | pv | sudo dd of=/dev/disk3 bs=1m`
+    2. Without `pv`: `$ gzip -dc ~/Desktop/diet-raspbian.img.gz | sudo dd of=/dev/disk3 bs=1m`
 
 > WARNING: Double-check that you're using the right `if` disk and `of` or `gzip` destinations; these values will be different on your system.
 
