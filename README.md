@@ -70,6 +70,8 @@ At this point, you should have a disk image you can write to new SD cards, or us
   4. Run `$ sudo raspi-config`, and select the first option ('Expand Filesystem')
   5. Reboot the Raspberry Pi
 
+If you need to Pi to pick up the current date and time via NTP, then log back in after the Pi is rebooted, and run the command `sudo service ntp restart`, then wait 5-10 seconds for the clock to sync (assuming your Pi is connected to the Internet).
+
 ## Author Information
 
 Created in 2015 by [Jeff Geerling](http://jeffgeerling.com/), author of [Ansible for DevOps](http://ansiblefordevops.com/).
