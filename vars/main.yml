@@ -1,9 +1,15 @@
 ---
-# Defaults for these overclock values are specific to the Raspberry Pi model.
-config_arm_freq: 700
-config_core_freq: 250
-config_sdram_freq: 400
-config_over_voltage: 0
+# Default clock settings for Raspberry Pi 2.
+# config_arm_freq: 700
+# config_core_freq: 250
+# config_sdram_freq: 400
+# config_over_voltage: 0
+
+# Relatively safe overclock values for Pi 2.
+config_arm_freq: 1000
+config_core_freq: 500
+config_sdram_freq: 500
+config_over_voltage: 2
 
 # Configure how much memory is allocated to the GPU (in MB).
 config_gpu_mem: 16

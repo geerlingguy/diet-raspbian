@@ -12,13 +12,13 @@ Everything should be done on your local host machine—nothing needs to be done 
   2. Build a microSD card with the [official Raspbian image](http://www.raspberrypi.org/downloads/), and boot your Pi:
     1. Boot the Pi with the fresh Rasbpian install.
     2. Log in over the network: `$ ssh pi@[IP-ADDRESS]`
-    3. Run `$ sudo raspi-config` and set initial options, but *don't expand the filesystem to fill the card's free space*!
+    3. Run `$ sudo raspi-config` and change the `pi` account password (using the `Change User Password` option), but *don't expand the filesystem to fill the card's free space*, or change any other settings! For easier configuration, you should also copy your SSH key to the `pi` account's `.ssh/authorized_keys` file at this time.
+    4. Log out from your Pi.
   3. Edit the `inventory` file and set the IP address to the address of your running Pi.
   4. Ensure you can log into the Pi via SSH using a key (so you don't have to enter a password).
   5. Run the following command: `$ ansible-playbook -i inventory diet.yml`.
-  6. Immediately following the playbook's completion, before rebooting the Pi, follow the steps below to 'Create a new diet-raspbian disk image' if you want to create the smallest image (without a swapfile).
 
-After 10-20 minutes, the space consumed by Raspbian should go from ~2.5 GB to ~1.5 GB (or lower, depending on how far along this project has come!). Restart your Raspberry Pi for full effect.
+After 10-20 minutes, the space consumed by Raspbian should go from ~2.5 GB to ~700 MB (or lower, depending on how far along this project has come!). If you'd like to create a new image for cloning purposes, run the command `ansible all -i inventory -a "shutdown -h now" -s` to shut down your Pi, then go to step 1 in the next section below.
 
 > IMPORTANT: The `diet.yml` playbook is meant to be run *prior* to any other Raspberry Pi configuration; it changes locale settings, general configuration, etc. (see `vars/main.yml`). This is meant to be run on a freshly-imaged Raspbian microSD/SD card.
 
@@ -28,25 +28,21 @@ Once you've run the `diet.yml` playbook on your Pi, and save a decent amount of 
 
 **Create an image from your now-trim Raspbian install**
 
-  1. Write zeros to the free space on the microSD card (this will take ~10 minutes):
-    1. `$ sudo dd if=/dev/zero of=/zerofile bs=1024` (until it errors out on filling the drive)
-    2. `$ sudo rm -f /zerofile` (to delete the file)
-  2. Shut down your Raspberry Pi (`$ sudo shutdown now`) and pop out the microSD card
-  3. Pop the microSD card into your Mac's card reader
-  4. Resize the ext4 partition (OPTIONAL, but will save a couple GB of space and ~10 minutes per cloned microSD card):
+  1. With your Raspberry Pi powered off, remove the microSD card and put it into your Mac's card reader
+  2. Resize the ext4 partition (OPTIONAL, but will save a couple GB of space and ~10 minutes per cloned microSD card):
     1. Boot up an Ubuntu VM using VirtualBox, VMWare Fusion, or Parallels Desktop
     2. Attach the USB device that has the microSD card attached to the VM
     3. Make sure gparted is installed (e.g. `$ sudo apt-get install -y gparted`)
     4. Start the gparted GUI: `$ sudo gparted`
-    5. Select the microSD card (e.g. `/dev/sdb`).
+    5. Select the microSD card (e.g. `/dev/sdb`) from 'Devices' in the GParted menu.
     6. Right click on the `ext4` (should be 2.99 GB or so) and `boot` volumes and unmount them
-    7. Resize the `ext4` volume to a smaller value (e.g. `850 MB`)
+    7. Right click on the the `ext4` volume and resize it to a smaller value (e.g. `850 MB`)
     8. Click the 'Apply' button (green checkbox) to apply the changes (this will take ~10 minutes)
     9. Eject the card from the Ubuntu VM so you can use it from the Mac again.
-  5. Locate the card: `$ diskutil list` (should be something like `/dev/disk3`)
-  6. Make a compressed image of the card using `dd`:
-    1. With `pv`: `$ sudo dd if=/dev/disk3 bs=1m count=1536 | pv | gzip > ~/Desktop/diet-raspbian.img.gz`
-    2. Without `pv`: `$ sudo dd if=/dev/disk3 bs=1m count=1536 | gzip > ~/Desktop/diet-raspbian.img.gz`
+  3. Locate the card: `$ diskutil list` (should be something like `/dev/disk2`)
+  4. Make a compressed image of the card using `dd`:
+    1. With `pv`: `$ sudo dd if=/dev/disk2 bs=1m count=1536 | pv | gzip > ~/Desktop/diet-raspbian.img.gz`
+    2. Without `pv`: `$ sudo dd if=/dev/disk2 bs=1m count=1536 | gzip > ~/Desktop/diet-raspbian.img.gz`
 
 > WARNING: Double-check that you're using the right `if` disk and `of` or `gzip` destinations; these values will be different on your system.
 
@@ -56,22 +52,23 @@ At this point, you should have a disk image you can write to new SD cards, or us
 
 **Write the image back to another microSD card**
 
-  1. Pop the new card into your Mac's card reader
-  2. Locate the card: `$ diskutil list` (should be something like `/dev/disk3`)
-  3. Unmount any mounted partitions on the card: `$ diskutil unmountDisk /dev/disk3`
+  1. Put the new card into your Mac's card reader
+  2. Locate the card: `$ diskutil list` (should be something like `/dev/disk2`)
+  3. Unmount any mounted partitions on the card: `$ diskutil unmountDisk /dev/disk2`
   3. Write the image to the new card:
-    1. With `pv`: `$ gzip -dc ~/Desktop/diet-raspbian.img.gz | pv | sudo dd of=/dev/disk3 bs=1m`
-    2. Without `pv`: `$ gzip -dc ~/Desktop/diet-raspbian.img.gz | sudo dd of=/dev/disk3 bs=1m`
+    1. With `pv`: `$ gzip -dc ~/Desktop/diet-raspbian.img.gz | pv | sudo dd of=/dev/disk2 bs=1m`
+    2. Without `pv`: `$ gzip -dc ~/Desktop/diet-raspbian.img.gz | sudo dd of=/dev/disk2 bs=1m`
 
 > WARNING: Double-check that you're using the right `if` disk and `of` or `gzip` destinations; these values will be different on your system.
 
 **Expand the image to fill the new microSD card (on the Pi)**
 
-  1. Pop the freshly-minted card into your Pi
+  1. Put the freshly-minted card into your Pi
   2. Wait for the Pi to boot (fingers crossed!)
-  3. Log in (either locally or via SSH) and run `$ sudo raspi-config`
-  4. Select the first option ('expand partition to fill disk').
-  5. Reboot the Raspberry Pi.
+  3. Log in (either locally or via SSH)
+  4. Disable swap and remove the swap file temporarily: `sudo swapoff -a && sudo rm -f /var/swap`
+  4. Run `$ sudo raspi-config`, and select the first option ('Expand Filesystem')
+  5. Reboot the Raspberry Pi
 
 ## Author Information
 

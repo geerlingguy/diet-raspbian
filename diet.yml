@@ -44,6 +44,11 @@
         dest: /etc/resolv.conf
         mode: 0644
 
+    - name: Update apt cache.
+      apt:
+        update_cache: yes
+        cache_valid_time: 900
+
     - name: Install needed packages.
       apt:
         name: "{{ item }}"
@@ -65,6 +70,7 @@
     - name: Update all remaining packages.
       apt:
         update_cache: yes
+        cache_valid_time: 900
         upgrade: safe
 
     - name: Ensure certain files and directories are deleted.

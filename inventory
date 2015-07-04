@@ -1,2 +1,2 @@
 [raspbian]
-10.0.1.44 ansible_ssh_user=pi
+10.0.1.40 ansible_ssh_user=pi
