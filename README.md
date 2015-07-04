@@ -6,6 +6,8 @@ Therefore `diet-raspbian` uses Ansible to take a system built with the official 
 
 ## Usage
 
+Everything should be done on your local host machine—nothing needs to be done on the Raspberry Pi itself!
+
   1. Install [Ansible](http://docs.ansible.com/intro_installation.html).
   2. Build a microSD card with the [official Raspbian image](http://www.raspberrypi.org/downloads/), and boot your Pi:
     1. Boot the Pi with the fresh Rasbpian install.
