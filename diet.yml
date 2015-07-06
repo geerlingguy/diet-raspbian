@@ -13,6 +13,9 @@
         dest: /boot/config.txt
         mode: 0755
 
+    - name: Back up the network interfaces file.
+      command: cp /etc/network/interfaces /tmp/network-interfaces
+
     - name: Set timezone.
       copy:
         content: "{{ locale_timezone }}"
@@ -78,6 +81,9 @@
         path: "{{ item }}"
         state: absent
       with_items: remove_paths
+
+    - name: Restore the network interfaces file.
+      command: cp /tmp/network-interfaces /etc/network/interfaces
 
     - name: Clean apt caches.
       command: apt-get clean
