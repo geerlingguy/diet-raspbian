@@ -8,7 +8,7 @@ Diet Raspbian uses Ansible to take a system built with the official Raspbian ima
 
 ## Usage
 
-> You can skip all of these directions and **download a pre-generated Diet Raspbian image** directly from the [Midwestern Mac Files](http://files.midwesternmac.com/) site (under the 'Raspberry Pi Images' section).
+> You can skip all of these directions and **download a pre-generated Diet Raspbian image** directly from the [Midwestern Mac Files](http://files.midwesternmac.com/#raspberry-pi-images) site (under the 'Raspberry Pi Images' section).
 
 Everything should be done on your local host machine—nothing needs to be done on the Raspberry Pi itself!
 
