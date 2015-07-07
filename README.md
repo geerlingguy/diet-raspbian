@@ -1,12 +1,14 @@
 # Diet Raspbian - Minimal Raspbian with Ansible
 
-**Note**: If you just want to use a premade copy of the Diet Raspbian image, you can download it directly from the [Midwestern Mac Files](http://files.midwesternmac.com/) site (under the 'Raspberry Pi Images' section).
+**Trim the fat from the default Raspbian image.**
 
-The `diet-raspbian` project aims to trim the fat of the default Raspbian image. I've looked into using other people's minimal Raspbian images, but they're usually out of date by days, weeks, or months, and they aren't built in an open/simple way.
+Many minimal Raspbian images are based on very old versions of Raspbian and aren't built in an open/simple way.
 
-Therefore `diet-raspbian` uses Ansible to take a system built with the official Raspbian image, and strip it of extraneous bits like default IDEs, languages, Wolfram, a window manager, etc. Why would this be helpful? If you're running a Raspberry Pi as a small headless server (e.g. for home automation, a fun robot project, or in a clustered configuration), there's no need for all the extra cruft.
+Diet Raspbian uses Ansible to take a system built with the official Raspbian image, and strip it of extraneous bits like default IDEs, languages, Wolfram, a window manager, etc. Why? If you're running a Raspberry Pi as a small headless server (e.g. for home automation, a fun robot project, or in a clustered configuration), there's no need for all the extra cruft.
 
 ## Usage
+
+> You can skip all of these directions and **download a pre-generated Diet Raspbian image** directly from the [Midwestern Mac Files](http://files.midwesternmac.com/) site (under the 'Raspberry Pi Images' section).
 
 Everything should be done on your local host machine—nothing needs to be done on the Raspberry Pi itself!
 
@@ -49,7 +51,7 @@ Once you've run the `diet.yml` playbook on your Pi, you can create a new `diet-r
 
 At this point, you should have a disk image you can write to new SD cards, or use to overwrite your existing SD card.
 
-## Write the Diet Raspbian image back to another microSD card
+## Write the Diet Raspbian image to another microSD card
 
   1. Put the new card into your Mac's card reader.
   2. Locate the card: `$ diskutil list` (should be something like `/dev/disk2`)
