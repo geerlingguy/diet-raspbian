@@ -36,55 +36,74 @@ install_packages:
 # Packages to be removed.
 remove_packages:
   # X and Desktop environment.
+  - adwaita-icon-theme
+  - alacarte
   - desktop-base
-  - lightdm
-  - lxappearance
-  - lxde-common
-  - lxde-icon-theme
-  - lxinput
-  - lxpanel
-  - lxpolkit
-  - lxrandr
-  - lxsession-edit
-  - lxshortcut
-  - lxtask
-  - lxterminal
-  - obconf
+  - desktop-file-utils
+  - epiphany-browser*
+  - fontconfig*
+  - fonts*
+  - galculator
+  - gir1.2*
+  - gnome*
+  - gpicview
+  - gsfonts*
+  - gtk*
+  - gvfs*
+  - hicolor-icon-theme
+  - libpango*
+  - libreoffice*
+  - librevenge*
+  - liblightdm*
+  - lightdm*
+  - lx*
+  - nuscratch
+  - omxplayer
   - openbox
+  - pcmanfm
   - raspberrypi-artwork
-  - xfonts-utils
+  - raspberrypi-ui-mods
+  - rc-gui
+  - scratch
+  - whiptail
+  - xfonts*
   - xarchiver
   - xinit
-  - xserver-xorg
-  - xserver-xorg-video-fbdev
-  - x11-utils
-  - x11-common
+  - xpdf
+  - xserver*
+  - x11*
+  - zenity*
   # Multimedia packages.
-  - esound-common
   - freepats
+  - gstreamer*
+  - jackd*
+  - pimixer
   - sonic-pi
-  - jackd2
-  - omxplayer
+  - supercollider*
+  - timidity
+  - esound-common
   # Extraneous programming languages.
-  - python3
-  - python3.2
-  - python3.2-minimal
+  - bluej
+  - greenfoot
+  - groff
+  - idle*
+  - leafpad
+  - python3*
   - pypy-upstream
-  - oracle-java8-jdk
-  - ruby1.9.1
+  - oracle*
+  - ruby*
   # Other packages.
-  - minecraft-pi
-  - wolfram-engine
-  - libopencv*
-  - python-pifacecommon
-  - python3-pifacecommon
+  - claws-mail*
+  - coinor*
   - dillo
-  - squeak-vm
-  - squeak-plugins-scratch
-  - netsurf-gtk
-  - netsurf-common
-  - epiphany-browser-data
-  - fonts-droid
-  - gsfonts
+  - libopencv*
+  - minecraft-pi
+  - netsurf*
+  - penguinspuzzle
+  - pipanel
+  - python-minecraftpi
+  - python-pifacecommon
+  - squeak*
   - man-db
   - manpages
+  - wolfram-engine

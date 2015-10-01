@@ -13,9 +13,8 @@ Diet Raspbian uses Ansible to take a system built with the official Raspbian ima
 Everything should be done on your local host machine—nothing needs to be done on the Raspberry Pi itself!
 
   1. Install [Ansible](http://docs.ansible.com/intro_installation.html).
-  2. Build a microSD card with the [official Raspbian image](http://www.raspberrypi.org/downloads/), and boot your Pi:
-    1. Boot the Pi with the fresh Rasbpian install.
-    2. Copy your public key for passwordless SSH login (e.g. `ssh-copy-id pi@[IP-ADDRESS]`), and make sure you can login to the Pi without a password (e.g. `ssh pi@[IP-ADDRESS]`).
+  2. Build a microSD card with the [official Raspbian image](http://www.raspberrypi.org/downloads/), and boot your Pi.
+  3. Copy your public key for passwordless SSH login (e.g. `ssh-copy-id pi@[IP-ADDRESS]`), and make sure you can login to the Pi without a password (e.g. `ssh pi@[IP-ADDRESS]`).
       1. If you want, you can also SSH into the Pi and run `passwd` to change the `pi` account password from the default, `raspberry`.
       2. *Don't* run `raspi-config` at this time.
   3. Edit the `inventory` file and set the IP address to the address of your running Pi.
@@ -24,6 +23,14 @@ Everything should be done on your local host machine—nothing needs to be done 
 After 10-20 minutes, the space consumed by Raspbian should go from ~2.5 GB to ~700 MB (or lower, depending on how far along this project has come!). If you'd like to create a new image for cloning purposes, run the command `ansible all -i inventory -a "shutdown -h now" -s` to shut down your Pi, then go to step 1 in the next section below.
 
 > IMPORTANT: The `diet.yml` playbook is meant to be run *prior* to any other Raspberry Pi configuration; it changes locale settings, general configuration, etc. (see `vars/main.yml`). This is meant to be run on a freshly-imaged Raspbian microSD/SD card.
+
+### Initial setup via GUI/X
+
+  1. Boot the Pi with the fresh Rasbpian install; the Pi will boot straight into X (the GUI).
+  2. If you have WiFi, connect to the WiFi network. If you have Ethernet, connect the network cable to your Pi.
+  3. Open a Terminal window on the Pi and type `ifconfig`, to get your Pi's IP address.
+  4. Open Menu > Preferences > Raspberry Pi Configuration, and change the 'Boot' option to 'To CLI' and uncheck "Login as user 'pi'".
+  5. Click OK and reboot the Pi.
 
 ## Creating a new Diet Raspian disk image for cloning
 
