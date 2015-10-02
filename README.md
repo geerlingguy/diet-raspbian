@@ -26,13 +26,15 @@ After 10-20 minutes, the space consumed by Raspbian should go from ~2.5 GB to ~7
 
 ### Initial setup via GUI/X
 
+If you want to do the first couple setup steps using the GUI instead of just connecting to the Pi via SSH headlessly, you can do so using the steps below; then go to step 3 in the above directions from your local host machine.
+
   1. Boot the Pi with the fresh Rasbpian install; the Pi will boot straight into X (the GUI).
   2. If you have WiFi, connect to the WiFi network. If you have Ethernet, connect the network cable to your Pi.
   3. Open a Terminal window on the Pi and type `ifconfig`, to get your Pi's IP address.
   4. Open Menu > Preferences > Raspberry Pi Configuration, and change the 'Boot' option to 'To CLI' and uncheck "Login as user 'pi'".
   5. Click OK and reboot the Pi.
 
-## Creating a new Diet Raspian disk image for cloning
+## Creating a new Diet Raspian disk image for cloning (optional)
 
 Once you've run the `diet.yml` playbook on your Pi, you can create a new `diet-raspbian.img.gz` compressed disk image that you can use to clone (or re-clone) to your microSD cards, so you don't have to run the `diet.yml` playbook in the future, or if you want to quickly rebuild your existing Pi's OS.
 
@@ -58,7 +60,7 @@ Once you've run the `diet.yml` playbook on your Pi, you can create a new `diet-r
 
 At this point, you should have a disk image you can write to new SD cards, or use to overwrite your existing SD card.
 
-## Write the Diet Raspbian image to another microSD card
+### Write the Diet Raspbian image to another microSD card
 
   1. Put the new card into your Mac's card reader.
   2. Locate the card: `$ diskutil list` (should be something like `/dev/disk2`)
