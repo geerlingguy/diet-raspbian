@@ -16,11 +16,26 @@ networking_nameservers:
   - "8.8.8.8"
   - "8.8.4.4"
 
-# Paths/files to be deleted.
+# Paths/files to be deleted in the pi user home directory.
+remove_paths_pi_home:
+  - python_games
+  - Desktop
+  - Documents
+  - Downloads
+  - Music
+  - Pictures
+  - Public
+  - Templates
+  - Videos
+  - .minecraft
+  - .asoundrc
+  - .dmrc
+  - .gstreamer-0.10
+  - themes
+  - Xauthority
+
+# Other paths/files to be deleted.
 remove_paths:
-  # Home folder stuff.
-  - /home/pi/python_games
-  - /home/pi/Desktop
   # Documentation.
   - /usr/share/doc/
   - /usr/share/man/

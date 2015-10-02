@@ -33,8 +33,8 @@
 
     - name: Configure locale.
       template:
-        src: templates/locale.j2
-        dest: /etc/default/locale
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
         mode: 0644
       notify: update locale
       with_items:
@@ -75,6 +75,12 @@
         update_cache: yes
         cache_valid_time: 900
         upgrade: safe
+
+    - name: Ensure certain files and directories are deleted (from pi home).
+      file:
+        path: "/home/pi/{{ item }}"
+        state: absent
+      with_items: remove_paths_pi_home
 
     - name: Ensure certain files and directories are deleted.
       file:
