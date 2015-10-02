@@ -65,7 +65,6 @@ remove_packages:
   - raspberrypi-ui-mods
   - rc-gui
   - scratch
-  - whiptail
   - xfonts*
   - xarchiver
   - xinit
