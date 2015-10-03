@@ -67,17 +67,16 @@ At this point, you should have a disk image you can write to new SD cards, or us
   2. Locate the card: `$ diskutil list` (should be something like `/dev/disk2`)
   3. Unmount any mounted partitions on the card: `$ diskutil unmountDisk /dev/disk2`
   3. Write the image to the new card:
-    1. With `pv`: `$ gzip -dc ~/Desktop/diet-raspbian-1.0.0.img.gz | pv | sudo dd of=/dev/disk2 bs=1m`
-    2. Without `pv`: `$ gzip -dc ~/Desktop/diet-raspbian-1.0.0.img.gz | sudo dd of=/dev/disk2 bs=1m`
+    1. With `pv`: `$ gzip -dc ~/Desktop/diet-raspbian-2.0.0.img.gz | pv | sudo dd of=/dev/disk2 bs=1m`
+    2. Without `pv`: `$ gzip -dc ~/Desktop/diet-raspbian-2.0.0.img.gz | sudo dd of=/dev/disk2 bs=1m`
 
 > WARNING: Double-check that you're using the right `if` disk and `of` or `gzip` destinations; these values will be different on your system.
 
 ### Use the fresh microSD card in your Raspberry Pi
 
-  1. Put the freshly-minted card into your Pi.
-  2. Wait for the Pi to boot (fingers crossed!).
-  3. Log in (either locally or via SSH).
-  4. Disable swap and remove the swap file temporarily: `sudo swapoff -a && sudo rm -f /var/swap`
+  1. Put the freshly-minted card into your Pi and boot the Pi.
+  2. Log in (either locally or via SSH).
+  3. Disable swap and remove the swap file temporarily: `sudo swapoff -a && sudo rm -f /var/swap`
   4. Run `$ sudo raspi-config`, and select the first option ('Expand Filesystem').
   5. Reboot the Raspberry Pi.
 
