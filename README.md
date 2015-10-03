@@ -46,8 +46,8 @@ Once you've run the `diet.yml` playbook on your Pi, you can create a new `diet-r
     3. Make sure gparted is installed: `$ sudo apt-get install -y gparted`
     4. Start the gparted GUI: `$ sudo gparted`
     5. Select the microSD card (e.g. `/dev/sdb`) from 'Devices' in the GParted menu.
-    6. Right click on the `ext4` (should be 2.99 GB or so) and `boot` volumes and unmount them.
-    7. Right click on the the `ext4` volume and resize it to a smaller value (e.g. `850 MB`).
+    6. Right click on the `ext4` (should be ~4 GB) and `boot` volumes and unmount them.
+    7. Right click on the the `ext4` volume and resize it to a smaller value (e.g. `1024 MB`).
     8. Click the 'Apply' button (green checkbox) to apply the changes (this will take ~10 minutes).
     9. Eject the card from the Ubuntu VM so you can use it from the Mac again.
   3. Locate the card: `$ diskutil list` (should be something like `/dev/disk2`)
