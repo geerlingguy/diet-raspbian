@@ -1,3 +1,7 @@
+**NOTE - Official Raspbian Lite Distribution Now Available!**: _As of November 2015, the official Raspbian image is now maintained in a full GUI and 'lite' GUI-less flavor. This project has now been deprecated as of the 2.0.0 ('Jessie') release, and you should switch your servers over to the official Lite image instead._
+
+---
+
 # Diet Raspbian - Minimal Raspbian with Ansible
 
 **Trim the fat from the default Raspbian image.**
